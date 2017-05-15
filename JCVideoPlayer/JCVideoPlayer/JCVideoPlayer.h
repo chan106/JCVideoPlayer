@@ -10,4 +10,7 @@
 
 @interface JCVideoPlayer : UIViewController
 
+@property (copy, nonatomic) NSArray *videoFiles;
+@property (assign, nonatomic) NSInteger index;
+
 @end
