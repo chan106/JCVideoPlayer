@@ -1,19 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="JCVideoPlayer">
             <connections>
+                <outlet property="bottomBar" destination="sik-Ab-L63" id="TTt-xG-cIA"/>
                 <outlet property="bufferProgress" destination="6yE-Ft-tJ0" id="haj-q2-LxL"/>
                 <outlet property="bufferView" destination="W1u-0e-3W0" id="rOy-ZY-fEy"/>
                 <outlet property="closeBtn" destination="2FK-rd-UyH" id="wlJ-7b-7t9"/>
+                <outlet property="loading" destination="cka-Cw-qq8" id="3zc-dH-BUn"/>
                 <outlet property="nextBtn" destination="JqZ-sr-JgK" id="5Q5-tu-NDZ"/>
                 <outlet property="playBtn" destination="E8D-zU-ChO" id="U9v-kX-e8E"/>
                 <outlet property="playerView" destination="Ocb-zi-LzA" id="UVj-yl-CN5"/>
@@ -21,6 +23,7 @@
                 <outlet property="progressBoard" destination="0cd-Ud-fYj" id="o1a-7g-cux"/>
                 <outlet property="progressView" destination="3E6-BS-brx" id="tQQ-zn-NgI"/>
                 <outlet property="slideWidth" destination="noF-gY-kNM" id="zHm-9v-zig"/>
+                <outlet property="topBar" destination="0o2-gF-tRc" id="0IC-Kc-Hsz"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -31,12 +34,25 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ocb-zi-LzA">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="cka-Cw-qq8">
+                            <rect key="frame" x="169" y="315.5" width="37" height="37"/>
+                        </activityIndicatorView>
+                    </subviews>
                     <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                    <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstItem="cka-Cw-qq8" firstAttribute="centerY" secondItem="Ocb-zi-LzA" secondAttribute="centerY" id="0CF-H3-v4v"/>
+                        <constraint firstItem="cka-Cw-qq8" firstAttribute="centerX" secondItem="Ocb-zi-LzA" secondAttribute="centerX" id="q03-hT-xmi"/>
+                    </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="tdV-LU-ffc" appends="YES" id="nTe-aQ-Nkn"/>
+                    </connections>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0o2-gF-tRc">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2FK-rd-UyH">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2FK-rd-UyH">
                             <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="64" id="cCt-se-P3O"/>
@@ -46,7 +62,7 @@
                                 <action selector="closeAction:" destination="-1" eventType="touchUpInside" id="wbQ-Le-195"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wK3-uV-lnj">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wK3-uV-lnj">
                             <rect key="frame" x="311" y="0.0" width="64" height="64"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="64" id="j3l-eb-GmF"/>
@@ -71,7 +87,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sik-Ab-L63">
                     <rect key="frame" x="0.0" y="621" width="375" height="46"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E8D-zU-ChO">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E8D-zU-ChO">
                             <rect key="frame" x="0.0" y="0.0" width="46" height="46"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="46" id="Bdj-0j-l34"/>
@@ -82,7 +98,7 @@
                                 <action selector="playAction:" destination="-1" eventType="touchUpInside" id="Fr1-tw-66z"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JqZ-sr-JgK">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JqZ-sr-JgK">
                             <rect key="frame" x="329" y="0.0" width="46" height="46"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="46" id="9hO-Yi-tIA"/>
@@ -92,7 +108,7 @@
                                 <action selector="nextAction:" destination="-1" eventType="touchUpInside" id="iJo-Pj-wDR"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hhq-Dc-DFu">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hhq-Dc-DFu">
                             <rect key="frame" x="283" y="0.0" width="46" height="46"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="46" id="HjP-0S-AgU"/>
@@ -109,7 +125,7 @@
                                 <constraint firstAttribute="height" constant="6" id="Omi-BH-URf"/>
                             </constraints>
                         </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W1u-0e-3W0">
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W1u-0e-3W0">
                             <rect key="frame" x="46" y="20" width="50" height="6"/>
                             <color key="backgroundColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
@@ -175,6 +191,11 @@
             <nil key="simulatedBottomBarMetrics"/>
             <point key="canvasLocation" x="3.5" y="45.5"/>
         </view>
+        <tapGestureRecognizer id="tdV-LU-ffc">
+            <connections>
+                <action selector="switchToolBar:" destination="-1" id="Qrj-B5-cQa"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="上一个" width="26" height="26"/>

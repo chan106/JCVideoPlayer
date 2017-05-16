@@ -15,6 +15,8 @@
 		A73BDAD71EC9D080005AECD2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A73BDAD51EC9D080005AECD2 /* LaunchScreen.storyboard */; };
 		A73BDAE21EC9D125005AECD2 /* JCVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A73BDAE01EC9D125005AECD2 /* JCVideoPlayer.m */; };
 		A73BDAE31EC9D125005AECD2 /* JCVideoPlayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = A73BDAE11EC9D125005AECD2 /* JCVideoPlayer.xib */; };
+		A782DA181ECA9EE5003B2B7A /* 001.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = A782DA161ECA9EE5003B2B7A /* 001.mp4 */; };
+		A782DA191ECA9EE5003B2B7A /* 002.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = A782DA171ECA9EE5003B2B7A /* 002.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,8 @@
 		A73BDADF1EC9D125005AECD2 /* JCVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCVideoPlayer.h; sourceTree = "<group>"; };
 		A73BDAE01EC9D125005AECD2 /* JCVideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCVideoPlayer.m; sourceTree = "<group>"; };
 		A73BDAE11EC9D125005AECD2 /* JCVideoPlayer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JCVideoPlayer.xib; sourceTree = "<group>"; };
+		A782DA161ECA9EE5003B2B7A /* 001.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 001.mp4; sourceTree = "<group>"; };
+		A782DA171ECA9EE5003B2B7A /* 002.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 002.mp4; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,8 @@
 				A73BDAD31EC9D080005AECD2 /* Assets.xcassets */,
 				A73BDAD51EC9D080005AECD2 /* LaunchScreen.storyboard */,
 				A73BDAD81EC9D080005AECD2 /* Info.plist */,
+				A782DA161ECA9EE5003B2B7A /* 001.mp4 */,
+				A782DA171ECA9EE5003B2B7A /* 002.mp4 */,
 				A73BDAC71EC9D080005AECD2 /* Supporting Files */,
 			);
 			path = JCVideoPlayer;
@@ -126,7 +132,7 @@
 				TargetAttributes = {
 					A73BDAC31EC9D080005AECD2 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = B8L6N75C4S;
+						DevelopmentTeam = A4JK97749S;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -154,9 +160,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A782DA191ECA9EE5003B2B7A /* 002.mp4 in Resources */,
 				A73BDAD71EC9D080005AECD2 /* LaunchScreen.storyboard in Resources */,
 				A73BDAD41EC9D080005AECD2 /* Assets.xcassets in Resources */,
 				A73BDAD21EC9D080005AECD2 /* Main.storyboard in Resources */,
+				A782DA181ECA9EE5003B2B7A /* 001.mp4 in Resources */,
 				A73BDAE31EC9D125005AECD2 /* JCVideoPlayer.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -293,8 +301,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = B8L6N75C4S;
+				DEVELOPMENT_TEAM = A4JK97749S;
 				INFOPLIST_FILE = JCVideoPlayer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Guo.JC.JCVideoPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -305,8 +314,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = B8L6N75C4S;
+				DEVELOPMENT_TEAM = A4JK97749S;
 				INFOPLIST_FILE = JCVideoPlayer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Guo.JC.JCVideoPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -332,6 +342,7 @@
 				A73BDADD1EC9D080005AECD2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

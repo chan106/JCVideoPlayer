@@ -17,13 +17,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    [button setTitle:@"kkkkkkk" forState:UIControlStateNormal];
+    button.frame = CGRectMake(50, 100, 40, 40);
+    [self.view addSubview:button];
+    [button addTarget:self action:@selector(tap) forControlEvents:UIControlEventTouchUpInside];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
+- (void)tap{
+
     [self presentViewController:[JCVideoPlayer new] animated:YES completion:nil];
-    
 }
 
 - (void)didReceiveMemoryWarning {

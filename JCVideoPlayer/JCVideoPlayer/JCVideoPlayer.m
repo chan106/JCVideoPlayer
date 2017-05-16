@@ -25,17 +25,24 @@
 @property (assign, nonatomic) CMTime totalTime;
 @property (strong, nonatomic) NSTimer *updateTimer;
 @property (weak, nonatomic) IBOutlet UIView *playerView;
-
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loading;
+@property (assign, nonatomic) BOOL isFinishCurrent;
+@property (weak, nonatomic) IBOutlet UIView *topBar;
+@property (weak, nonatomic) IBOutlet UIView *bottomBar;
+@property (strong, nonatomic) NSTimer *hidenToolBarTimer;
 @end
+
+#define kStatus @"status"
 
 @implementation JCVideoPlayer
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _videoFiles = @[@"/Users/guo.jc/Desktop/videoFile/001.mp4",
-                    @"/Users/guo.jc/Desktop/videoFile/002.mp4",
-                    @"/Users/guo.jc/Desktop/videoFile/003.mp4"];
-    _index = 1;
+
+    NSString *path01 = [[NSBundle mainBundle] pathForResource:@"001.mp4" ofType:nil];
+    NSString *path02 = [[NSBundle mainBundle] pathForResource:@"002.mp4" ofType:nil];
+    _videoFiles = @[path01,path02];
+    _index = 0;
     [self initPlayer];
 }
 
@@ -43,7 +50,8 @@
     
     _progressView.layer.cornerRadius = _progressBoard.layer.cornerRadius = _bufferView.layer.cornerRadius = 3;
     _progressView.layer.masksToBounds = _progressBoard.layer.masksToBounds = _bufferView.layer.masksToBounds = YES;
-    
+    [_loading stopAnimating];
+    _isFinishCurrent = NO;
     // setAVPlayer
     _player = [[AVPlayer alloc] init];
     _playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
@@ -54,28 +62,37 @@
 }
 
 - (void)updatePlayerWithURL:(NSURL *)url {
-    _playBtn.selected = NO;
+    _playBtn.selected = YES;
+    [_loading startAnimating];
+    _slideWidth.constant = 0;
     if (_updateTimer) {
         [_updateTimer invalidate];
         _updateTimer = nil;
     }
     if (_playerItem) {
-//        [_playerItem removeObserver:self forKeyPath:@"status"];
+        [_playerItem removeObserver:self forKeyPath:kStatus];
     }
     _playerItem = [AVPlayerItem playerItemWithURL:url]; // create item
     [_player  replaceCurrentItemWithPlayerItem:_playerItem];
-//    [self addObserverAndNotification];
-    [_player play];
-    _updateTimer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
-        [self setProgress:(CMTimeGetSeconds(_playerItem.currentTime) / CMTimeGetSeconds(_playerItem.duration)) animated:YES];
-    }];
+    [self addObserverAndNotification];
 }
 
 - (void)addObserverAndNotification{
     [_playerItem addObserver:self
-                  forKeyPath:@"status"
+                  forKeyPath:kStatus
                      options:(NSKeyValueObservingOptionNew)
                      context:nil];
+    //给AVPlayerItem添加播放完成通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(playbackFinished:)
+                                                 name:AVPlayerItemDidPlayToEndTimeNotification
+                                               object:self.player.currentItem];
+}
+
+-(void)playbackFinished:(NSNotification *)notification{
+    NSLog(@"视频播放完成.");
+    _playBtn.selected = NO;
+    _isFinishCurrent = YES;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -83,7 +100,7 @@
                         change:(NSDictionary *)change
                        context:(void *)context {
     AVPlayerItem *item = (AVPlayerItem *)object;
-    if ([keyPath isEqualToString:@"status"]) {
+    if ([keyPath isEqualToString:kStatus]) {
         AVPlayerStatus status = [[change objectForKey:@"new"] intValue]; // 获取更改后的状态
         if (status == AVPlayerStatusReadyToPlay) {
             _totalTime = item.duration; // 获取视频长度
@@ -91,11 +108,19 @@
 //            [self setMaxDuration:CMTimeGetSeconds(duration)];
             // 播放
             [_player play];
+            if (_updateTimer == nil) {
+                _updateTimer = [NSTimer scheduledTimerWithTimeInterval:.1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+                    [self setProgress:(CMTimeGetSeconds(_playerItem.currentTime) / CMTimeGetSeconds(_playerItem.duration)) animated:YES];
+                }];
+            }
+            [_loading stopAnimating];
             _playBtn.selected = YES;
         } else if (status == AVPlayerStatusFailed) {
-            NSLog(@"AVPlayerStatusFailed");
+            NSLog(@"播放失败");
+            [_loading stopAnimating];
         } else {
-            NSLog(@"AVPlayerStatusUnknown");
+            NSLog(@"未知错误");
+            [_loading stopAnimating];
         }
         
     } else if ([keyPath isEqualToString:@"loadedTimeRanges"]) {
@@ -132,7 +157,12 @@
 
 - (IBAction)playAction:(UIButton *)sender {
     if (sender.selected == NO) {
-        [_player play];
+        if (_isFinishCurrent == YES) {
+            [self updatePlayerWithURL:[NSURL fileURLWithPath:_videoFiles[_index]]];
+            _isFinishCurrent = NO;
+        }else{
+           [_player play];
+        }
     }
     else{
         [_player pause];
@@ -161,18 +191,15 @@
 }
 
 - (IBAction)closeAction:(UIButton *)sender {
-    [self.player.currentItem cancelPendingSeeks];
-    [self.player.currentItem.asset cancelLoading];
+    [self interfaceOrientation:UIInterfaceOrientationPortrait];
     if (_updateTimer) {
         [_updateTimer invalidate];
         _updateTimer = nil;
     }
     [_player replaceCurrentItemWithPlayerItem:nil];
-//    [_playerItem removeObserver:self forKeyPath:@"status"];
-//    [_playerItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
-//    [_player removeTimeObserver:_playTimeObserver];
-//    _playTimeObserver = nil;
-//    [_playerItem removeObserver:self forKeyPath:@"status"];
+    [_playerItem removeObserver:self forKeyPath:kStatus];
+    [self.player.currentItem cancelPendingSeeks];
+    [self.player.currentItem.asset cancelLoading];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -203,10 +230,26 @@
         [invocation invoke];
     }
 }
+//工具栏隐藏或者出现
+- (IBAction)switchToolBar:(UITapGestureRecognizer *)sender {
+    
+    if (_topBar.alpha == 0) {
+        [self hidenToolBar:NO];
+    }else{
+        [self hidenToolBar:YES];
+    }
+}
+
+- (void)hidenToolBar:(BOOL)hiden{
+    [UIView animateWithDuration:.3 animations:^{
+        _topBar.alpha = !hiden;
+        _bottomBar.alpha = !hiden;
+    }];
+}
 
 - (void)dealloc{
     NSLog(@"释放=====");
-    [self interfaceOrientation:UIInterfaceOrientationPortrait];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
