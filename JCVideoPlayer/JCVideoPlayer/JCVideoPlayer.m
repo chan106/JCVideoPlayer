@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIView *topBar;
 @property (weak, nonatomic) IBOutlet UIView *bottomBar;
 @property (strong, nonatomic) NSTimer *hidenToolBarTimer;
+
 @end
 
 #define kStatus @"status"
@@ -38,11 +39,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    NSString *path01 = [[NSBundle mainBundle] pathForResource:@"001.mp4" ofType:nil];
-    NSString *path02 = [[NSBundle mainBundle] pathForResource:@"002.mp4" ofType:nil];
-    _videoFiles = @[path01,path02];
-    _index = 0;
     [self initPlayer];
 }
 
@@ -52,13 +48,19 @@
     _progressView.layer.masksToBounds = _progressBoard.layer.masksToBounds = _bufferView.layer.masksToBounds = YES;
     [_loading stopAnimating];
     _isFinishCurrent = NO;
+    if (_index == 0) {
+        _preBtn.enabled = NO;
+    }
+    if (_index == _videoFiles.count - 1) {
+        _nextBtn.enabled = NO;
+    }
     // setAVPlayer
     _player = [[AVPlayer alloc] init];
     _playerLayer = [AVPlayerLayer playerLayerWithPlayer:_player];
     _playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
-    _playerLayer.frame = self.view.bounds;
+    _playerLayer.frame = _playerView.bounds;
     [_playerView.layer addSublayer:_playerLayer];
-    [self updatePlayerWithURL:[NSURL fileURLWithPath:_videoFiles[_index]]];
+    [self updatePlayerWithURL:_videoFiles[_index]];
 }
 
 - (void)updatePlayerWithURL:(NSURL *)url {
@@ -155,10 +157,11 @@
     }
 }
 
+#pragma mark - Action
 - (IBAction)playAction:(UIButton *)sender {
     if (sender.selected == NO) {
         if (_isFinishCurrent == YES) {
-            [self updatePlayerWithURL:[NSURL fileURLWithPath:_videoFiles[_index]]];
+            [self updatePlayerWithURL:_videoFiles[_index]];
             _isFinishCurrent = NO;
         }else{
            [_player play];
@@ -173,25 +176,32 @@
 - (IBAction)preAction:(UIButton *)sender {
 
     if (_index == 0) {
+//        [self alertMessage:@"已经是第一个视频了"];
         return;
     }
     _index--;
-    NSURL *url = [NSURL fileURLWithPath:_videoFiles[_index]];
-    [self updatePlayerWithURL:url];
-    
+    [self updatePlayerWithURL:_videoFiles[_index]];
+    _nextBtn.enabled = YES;
+    if (_index == 0) {
+        _preBtn.enabled = NO;
+    }
 }
 
 - (IBAction)nextAction:(UIButton *)sender {
     if (_index == _videoFiles.count - 1) {
+//        [self alertMessage:@"已经是最后一个视频了"];
         return;
     }
     _index++;
-    NSURL *url = [NSURL fileURLWithPath:_videoFiles[_index]];
-    [self updatePlayerWithURL:url];
+    [self updatePlayerWithURL:_videoFiles[_index]];
+    _preBtn.enabled = YES;
+    if (_index == _videoFiles.count - 1) {
+        _nextBtn.enabled = NO;
+    }
 }
 
 - (IBAction)closeAction:(UIButton *)sender {
-    [self interfaceOrientation:UIInterfaceOrientationPortrait];
+    
     if (_updateTimer) {
         [_updateTimer invalidate];
         _updateTimer = nil;
@@ -201,35 +211,64 @@
     [self.player.currentItem cancelPendingSeeks];
     [self.player.currentItem.asset cancelLoading];
     [self dismissViewControllerAnimated:YES completion:nil];
+    self.player = nil;
+    [self.playerLayer removeFromSuperlayer];
+    self.playerLayer = nil;
 }
 
 - (IBAction)changeScreenDir:(UIButton *)sender {
     
     if (sender.selected) {
-        [self interfaceOrientation:UIInterfaceOrientationPortrait];
+        [self orientationChange:NO];
     }
     else{
-        [self interfaceOrientation:UIInterfaceOrientationLandscapeRight];
+         [self orientationChange:YES];
     }
     [UIView animateWithDuration:.5 animations:^{
         _playerLayer.frame = _playerView.bounds;
     }];
-    
     sender.selected = !sender.selected;
 }
 
-- (void)interfaceOrientation:(UIInterfaceOrientation)orientation
+#pragma mark - 屏幕旋转
+- (void)orientationChange:(BOOL)landscapeRight
 {
-    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
-        SEL selector             = NSSelectorFromString(@"setOrientation:");
-        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
-        [invocation setSelector:selector];
-        [invocation setTarget:[UIDevice currentDevice]];
-        int val                  = orientation;
-        [invocation setArgument:&val atIndex:2];
-        [invocation invoke];
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    if (landscapeRight) {
+        [UIView animateWithDuration:0.2f animations:^{
+            self.view.transform = CGAffineTransformMakeRotation(M_PI_2);
+            CGRect bouns = CGRectMake(0, 0, screenHeight, screenWidth);
+            self.view.bounds = bouns;
+            self.playerView.frame = bouns;
+            self.playerLayer.frame = self.playerView.bounds;
+        }];
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:YES];
+    } else {
+        [UIView animateWithDuration:0.2f animations:^{
+            self.view.transform = CGAffineTransformMakeRotation(0);
+            CGRect bouns = CGRectMake(0, 0, screenWidth, screenHeight);
+            self.view.bounds = bouns;
+            self.playerView.frame = bouns;
+            self.playerLayer.frame = self.playerView.bounds;
+        }];
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
     }
 }
+#pragma mark- sizeClass 横竖屏约束
+// sizeClass 横竖屏切换时，执行
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    // 横竖屏切换时重新添加约束
+    CGRect bounds = [UIScreen mainScreen].bounds;
+    _playerView.frame = bounds;
+    _playerLayer.frame = bounds;
+}
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
+    //viewController初始显示的方向
+    return UIInterfaceOrientationPortrait;
+}
+
 //工具栏隐藏或者出现
 - (IBAction)switchToolBar:(UITapGestureRecognizer *)sender {
     
@@ -248,7 +287,7 @@
 }
 
 - (void)dealloc{
-    NSLog(@"释放=====");
+    NSLog(@"释放视频播放器=====");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

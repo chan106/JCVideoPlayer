@@ -13,10 +13,12 @@
 		A73BDAD21EC9D080005AECD2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A73BDAD01EC9D080005AECD2 /* Main.storyboard */; };
 		A73BDAD41EC9D080005AECD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A73BDAD31EC9D080005AECD2 /* Assets.xcassets */; };
 		A73BDAD71EC9D080005AECD2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A73BDAD51EC9D080005AECD2 /* LaunchScreen.storyboard */; };
-		A73BDAE21EC9D125005AECD2 /* JCVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A73BDAE01EC9D125005AECD2 /* JCVideoPlayer.m */; };
-		A73BDAE31EC9D125005AECD2 /* JCVideoPlayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = A73BDAE11EC9D125005AECD2 /* JCVideoPlayer.xib */; };
-		A782DA181ECA9EE5003B2B7A /* 001.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = A782DA161ECA9EE5003B2B7A /* 001.mp4 */; };
-		A782DA191ECA9EE5003B2B7A /* 002.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = A782DA171ECA9EE5003B2B7A /* 002.mp4 */; };
+		A7E3AE251ECB23DB007B73A6 /* JCVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3AE211ECB23DB007B73A6 /* JCVideoPlayer.m */; };
+		A7E3AE261ECB23DB007B73A6 /* JCVideoPlayer.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7E3AE221ECB23DB007B73A6 /* JCVideoPlayer.xib */; };
+		A7E3AE271ECB23DB007B73A6 /* UIDevice+XJDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E3AE241ECB23DB007B73A6 /* UIDevice+XJDevice.m */; };
+		A7E3AE2B1ECB27E2007B73A6 /* 003.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = A7E3AE281ECB27E2007B73A6 /* 003.mp4 */; };
+		A7E3AE2C1ECB27E2007B73A6 /* 004.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = A7E3AE291ECB27E2007B73A6 /* 004.mp4 */; };
+		A7E3AE2D1ECB27E2007B73A6 /* 005.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = A7E3AE2A1ECB27E2007B73A6 /* 005.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,11 +32,14 @@
 		A73BDAD31EC9D080005AECD2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A73BDAD61EC9D080005AECD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A73BDAD81EC9D080005AECD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A73BDADF1EC9D125005AECD2 /* JCVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCVideoPlayer.h; sourceTree = "<group>"; };
-		A73BDAE01EC9D125005AECD2 /* JCVideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCVideoPlayer.m; sourceTree = "<group>"; };
-		A73BDAE11EC9D125005AECD2 /* JCVideoPlayer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JCVideoPlayer.xib; sourceTree = "<group>"; };
-		A782DA161ECA9EE5003B2B7A /* 001.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 001.mp4; sourceTree = "<group>"; };
-		A782DA171ECA9EE5003B2B7A /* 002.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 002.mp4; sourceTree = "<group>"; };
+		A7E3AE201ECB23DB007B73A6 /* JCVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCVideoPlayer.h; sourceTree = "<group>"; };
+		A7E3AE211ECB23DB007B73A6 /* JCVideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCVideoPlayer.m; sourceTree = "<group>"; };
+		A7E3AE221ECB23DB007B73A6 /* JCVideoPlayer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JCVideoPlayer.xib; sourceTree = "<group>"; };
+		A7E3AE231ECB23DB007B73A6 /* UIDevice+XJDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+XJDevice.h"; sourceTree = "<group>"; };
+		A7E3AE241ECB23DB007B73A6 /* UIDevice+XJDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+XJDevice.m"; sourceTree = "<group>"; };
+		A7E3AE281ECB27E2007B73A6 /* 003.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 003.mp4; sourceTree = "<group>"; };
+		A7E3AE291ECB27E2007B73A6 /* 004.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 004.mp4; sourceTree = "<group>"; };
+		A7E3AE2A1ECB27E2007B73A6 /* 005.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 005.mp4; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +72,7 @@
 		A73BDAC61EC9D080005AECD2 /* JCVideoPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				A73BDADE1EC9D0A2005AECD2 /* JCVideoPlayer */,
+				A7E3AE1F1ECB23DB007B73A6 /* JCVideoPlayer */,
 				A73BDACA1EC9D080005AECD2 /* AppDelegate.h */,
 				A73BDACB1EC9D080005AECD2 /* AppDelegate.m */,
 				A73BDACD1EC9D080005AECD2 /* ViewController.h */,
@@ -76,8 +81,9 @@
 				A73BDAD31EC9D080005AECD2 /* Assets.xcassets */,
 				A73BDAD51EC9D080005AECD2 /* LaunchScreen.storyboard */,
 				A73BDAD81EC9D080005AECD2 /* Info.plist */,
-				A782DA161ECA9EE5003B2B7A /* 001.mp4 */,
-				A782DA171ECA9EE5003B2B7A /* 002.mp4 */,
+				A7E3AE281ECB27E2007B73A6 /* 003.mp4 */,
+				A7E3AE291ECB27E2007B73A6 /* 004.mp4 */,
+				A7E3AE2A1ECB27E2007B73A6 /* 005.mp4 */,
 				A73BDAC71EC9D080005AECD2 /* Supporting Files */,
 			);
 			path = JCVideoPlayer;
@@ -91,12 +97,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		A73BDADE1EC9D0A2005AECD2 /* JCVideoPlayer */ = {
+		A7E3AE1F1ECB23DB007B73A6 /* JCVideoPlayer */ = {
 			isa = PBXGroup;
 			children = (
-				A73BDADF1EC9D125005AECD2 /* JCVideoPlayer.h */,
-				A73BDAE01EC9D125005AECD2 /* JCVideoPlayer.m */,
-				A73BDAE11EC9D125005AECD2 /* JCVideoPlayer.xib */,
+				A7E3AE201ECB23DB007B73A6 /* JCVideoPlayer.h */,
+				A7E3AE211ECB23DB007B73A6 /* JCVideoPlayer.m */,
+				A7E3AE221ECB23DB007B73A6 /* JCVideoPlayer.xib */,
+				A7E3AE231ECB23DB007B73A6 /* UIDevice+XJDevice.h */,
+				A7E3AE241ECB23DB007B73A6 /* UIDevice+XJDevice.m */,
 			);
 			path = JCVideoPlayer;
 			sourceTree = "<group>";
@@ -160,12 +168,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A782DA191ECA9EE5003B2B7A /* 002.mp4 in Resources */,
+				A7E3AE2C1ECB27E2007B73A6 /* 004.mp4 in Resources */,
+				A7E3AE2D1ECB27E2007B73A6 /* 005.mp4 in Resources */,
+				A7E3AE261ECB23DB007B73A6 /* JCVideoPlayer.xib in Resources */,
+				A7E3AE2B1ECB27E2007B73A6 /* 003.mp4 in Resources */,
 				A73BDAD71EC9D080005AECD2 /* LaunchScreen.storyboard in Resources */,
 				A73BDAD41EC9D080005AECD2 /* Assets.xcassets in Resources */,
 				A73BDAD21EC9D080005AECD2 /* Main.storyboard in Resources */,
-				A782DA181ECA9EE5003B2B7A /* 001.mp4 in Resources */,
-				A73BDAE31EC9D125005AECD2 /* JCVideoPlayer.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,7 +188,8 @@
 				A73BDACF1EC9D080005AECD2 /* ViewController.m in Sources */,
 				A73BDACC1EC9D080005AECD2 /* AppDelegate.m in Sources */,
 				A73BDAC91EC9D080005AECD2 /* main.m in Sources */,
-				A73BDAE21EC9D125005AECD2 /* JCVideoPlayer.m in Sources */,
+				A7E3AE251ECB23DB007B73A6 /* JCVideoPlayer.m in Sources */,
+				A7E3AE271ECB23DB007B73A6 /* UIDevice+XJDevice.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

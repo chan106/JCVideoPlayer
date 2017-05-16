@@ -20,7 +20,7 @@
     
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    [button setTitle:@"kkkkkkk" forState:UIControlStateNormal];
+    [button setTitle:@"tap" forState:UIControlStateNormal];
     button.frame = CGRectMake(50, 100, 40, 40);
     [self.view addSubview:button];
     [button addTarget:self action:@selector(tap) forControlEvents:UIControlEventTouchUpInside];
@@ -29,7 +29,14 @@
 
 - (void)tap{
 
-    [self presentViewController:[JCVideoPlayer new] animated:YES completion:nil];
+    JCVideoPlayer *player = [JCVideoPlayer new];
+    
+    player.videoFiles = @[[NSURL fileURLWithPath:[[NSBundle mainBundle]pathForResource:@"003.mp4" ofType:nil]],
+                          [NSURL fileURLWithPath:[[NSBundle mainBundle]pathForResource:@"004.mp4" ofType:nil]],
+                          [NSURL fileURLWithPath:[[NSBundle mainBundle]pathForResource:@"005.mp4" ofType:nil]]];
+    player.index = 0;
+    
+    [self presentViewController:player animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {
